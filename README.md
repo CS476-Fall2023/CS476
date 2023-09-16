@@ -5,3 +5,5 @@ Group Project
 Members
 - Snehil Maknojiya
 - Asim Maknojia
+- Anakin Shields
+- Benjamin Esson
