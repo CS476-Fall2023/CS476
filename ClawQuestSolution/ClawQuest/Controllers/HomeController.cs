@@ -23,12 +23,17 @@ namespace ClawQuest.Controllers
             return View();
         }
 
-        public IActionResult StartGame()
+        public IActionResult Play()
         {
             return View();
         }
 
-        public IActionResult EndGame()
+        public IActionResult Leaderboard()
+        {
+            return View();
+        }
+        
+        public IActionResult Quit()
         {
             return View();
         }
