@@ -18,11 +18,16 @@ namespace ClawQuest.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        public IActionResult Play()
         {
             return View();
         }
 
+        public IActionResult Leaderboard()
+        {
+            return View();
+        }
+        
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
