@@ -20,6 +20,6 @@ public class AdminOrPlayer : Controller
         {
             return RedirectToAction("Index", "HomeController");
         }
-
-        }
+        return BadRequest();
+    }
 }
