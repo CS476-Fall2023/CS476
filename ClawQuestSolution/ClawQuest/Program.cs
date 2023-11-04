@@ -28,8 +28,7 @@ using (var scope = app.Services.CreateScope())
         context.Database.Migrate();
     }
 
-    SeedRoles.Initialize(services);
-    await SeedUsers.InitializeAsync(services);
+    await SeedData.InitializeAsync(services);
 }
 
 // Configure the HTTP request pipeline.

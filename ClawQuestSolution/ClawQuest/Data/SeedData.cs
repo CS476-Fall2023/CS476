@@ -1,12 +1,34 @@
-﻿using Humanizer;
-using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.DependencyInjection;
+using System.Data;
 
 namespace ClawQuest.Data
 {
-    public static class SeedUsers
+    public static class SeedData
     {
+
         public static async Task InitializeAsync(IServiceProvider serviceProvider)
         {
+            #region Seed User Roles
+            using (var context = new ApplicationDbContext(serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
+            {
+                string[] roles = new string[] { "Administrator", "Player" };
+
+                var newrolelist = new List<IdentityRole>();
+                foreach (string role in roles)
+                {
+                    if (!context.Roles.Any(r => r.Name == role))
+                    {
+                        newrolelist.Add(new IdentityRole(role));
+                    }
+                }
+                context.Roles.AddRange(newrolelist);
+                context.SaveChanges();
+            }
+            #endregion
+
+            #region Seed Users
             using (UserManager<IdentityUser> _userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>())
             {
 
@@ -15,7 +37,6 @@ namespace ClawQuest.Data
                 new SeedUserModel(){ UserName="miltonshaw@clawquest.com",Password= "Admin123!" },
                 new SeedUserModel(){UserName ="davidbutler@gmail.com", Password="Skyisblue123!"}
             };
-
 
                 foreach (var user in userlist)
                 {
@@ -27,7 +48,9 @@ namespace ClawQuest.Data
                 }
 
             }
+            #endregion
 
+            #region Seed Toys
             using (var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>())
             {
                 if (!dbContext.Toys.Any())
@@ -47,6 +70,7 @@ namespace ClawQuest.Data
                     dbContext.SaveChanges();
                 }
             }
+            #endregion
         }
     }
 }
