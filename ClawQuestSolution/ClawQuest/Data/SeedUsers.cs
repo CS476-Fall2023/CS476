@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Humanizer;
+using Microsoft.AspNetCore.Identity;
 
 namespace ClawQuest.Data
 {
@@ -25,6 +26,26 @@ namespace ClawQuest.Data
                     }
                 }
 
+            }
+
+            using (var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>())
+            {
+                if (!dbContext.Toys.Any())
+                {
+                    var toyNames = new string[]
+                    {
+                        "Mega Plushie", "Teddy Bear", "Squid Plushie",
+                        "Action Figure", "Remote Control Car", "Board Game",
+                        "Doll House", "LEGO Set", "Puzzle",
+                        "Robot Kit", "Super Soaker Water Gun", "Science Kit",
+                        "Basketball", "Toy Kitchen Set", "Art Supplies"
+                    };
+
+                    var toys = toyNames.Select(name => new Toy { Name = name });
+
+                    dbContext.Toys.AddRange(toys);
+                    dbContext.SaveChanges();
+                }
             }
         }
     }
