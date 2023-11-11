@@ -24,5 +24,4 @@ public class AdminOrPlayer : Controller
         }
         return BadRequest();
     }
- main
 }
