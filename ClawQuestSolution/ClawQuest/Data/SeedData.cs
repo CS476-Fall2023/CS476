@@ -47,18 +47,26 @@ namespace ClawQuest.Data
             {
                 if (!dbContext.Toys.Any())
                 {
-                    var toyNames = new string[]
+                    var toyList = new List<Toy>
                     {
-                        "Mega Plushie", "Teddy Bear", "Squid Plushie",
-                        "Action Figure", "Remote Control Car", "Board Game",
-                        "Doll House", "LEGO Set", "Puzzle",
-                        "Robot Kit", "Super Soaker Water Gun", "Science Kit",
-                        "Basketball", "Toy Kitchen Set", "Art Supplies"
+                        new Toy { Name = "Mega Plushie", Price = 19.99, WinProbability = 0.5 },
+                        new Toy { Name = "Teddy Bear", Price = 15.99, WinProbability = 0.7 },
+                        new Toy { Name = "Squid Plushie", Price = 12.99, WinProbability = 0.6 },
+                        new Toy { Name = "Action Figure", Price = 9.99, WinProbability = 0.4 },
+                        new Toy { Name = "Remote Control Car", Price = 24.99, WinProbability = 0.8 },
+                        new Toy { Name = "Board Game", Price = 18.99, WinProbability = 0.6 },
+                        new Toy { Name = "Doll House", Price = 29.99, WinProbability = 0.4 },
+                        new Toy { Name = "LEGO Set", Price = 25.99, WinProbability = 0.7 },
+                        new Toy { Name = "Puzzle", Price = 14.99, WinProbability = 0.5 },
+                        new Toy { Name = "Robot Kit", Price = 22.99, WinProbability = 0.6 },
+                        new Toy { Name = "Super Soaker Water Gun", Price = 17.99, WinProbability = 0.8 },
+                        new Toy { Name = "Science Kit", Price = 21.99, WinProbability = 0.5 },
+                        new Toy { Name = "Basketball", Price = 12.99, WinProbability = 0.3 },
+                        new Toy { Name = "Toy Kitchen Set", Price = 27.99, WinProbability = 0.7 },
+                        new Toy { Name = "Art Supplies", Price = 16.99, WinProbability = 0.6 },
                     };
 
-                    var toys = toyNames.Select(name => new Toy { Name = name });
-
-                    dbContext.Toys.AddRange(toys);
+                    dbContext.Toys.AddRange(toyList);
                     dbContext.SaveChanges();
                 }
             }
