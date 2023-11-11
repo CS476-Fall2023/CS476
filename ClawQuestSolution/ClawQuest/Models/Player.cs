@@ -4,6 +4,7 @@ namespace ClawQuest.Models;
 
 public class Player
 {
-    public int Money { get; set; }
+    public int Id { get; set; }
+    public double Money { get; set; }
     public int Score { get; set; }
 }

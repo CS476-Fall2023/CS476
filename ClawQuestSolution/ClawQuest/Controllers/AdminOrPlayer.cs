@@ -9,6 +9,8 @@ public class AdminOrPlayer : Controller
     {
         return View();
     }
+      
+
     
     public IActionResult CheckRole(String role)
     {
