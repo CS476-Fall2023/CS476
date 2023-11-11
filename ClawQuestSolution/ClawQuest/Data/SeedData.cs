@@ -25,8 +25,18 @@ namespace ClawQuest.Data
                 {
                     if (!_userManager.Users.Any(r => r.UserName == user.UserName))
                     {
-                        var newuser = new IdentityUser { UserName = user.UserName, Email = user.UserName };
+                        var newuser = new IdentityUser { UserName = user.UserName, Email = user.UserName, EmailConfirmed = true };
                         var result = await _userManager.CreateAsync(newuser, user.Password);
+                    }
+                    else
+                    {
+                        // Update EmailConfirmed for existing users for local logins
+                        var existingUser = await _userManager.FindByNameAsync(user.UserName);
+                        if (!existingUser.EmailConfirmed)
+                        {
+                            existingUser.EmailConfirmed = true;
+                            await _userManager.UpdateAsync(existingUser);
+                        }
                     }
 
                     string roleName = user.UserName == "miltonshaw@clawquest.com" ? "Administrator" : "Player";
@@ -36,8 +46,10 @@ namespace ClawQuest.Data
                         await _roleManager.CreateAsync(new IdentityRole(roleName));
                     }
 
-                    var existingUser = await _userManager.FindByNameAsync(user.UserName);
-                    await _userManager.AddToRoleAsync(existingUser, roleName);
+                    var updateUser = await _userManager.FindByNameAsync(user.UserName);
+                    await _userManager.AddToRoleAsync(updateUser, roleName);
+
+
                 }
             }
             #endregion
