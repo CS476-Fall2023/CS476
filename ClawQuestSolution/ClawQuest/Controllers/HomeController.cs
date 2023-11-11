@@ -65,12 +65,12 @@ namespace ClawQuest.Controllers
                 // Simulate the claw game logic
                 var random = new Random();
                 var selectedToy = toys[random.Next(toys.Count)];
-                var result = new { name = selectedToy.Name, cost = selectedToy.Cost };
+                var result = new { name = selectedToy.Name, Price = selectedToy.Price };
 
-                if (random.NextDouble() < selectedToy.WinPercentage)
+                if (random.NextDouble() < selectedToy.WinProbability)
                 {
                     // The player wins the toy
-                    player.Score += selectedToy.Cost;
+                    player.Score += selectedToy.Price;
                     return Json(new { success = true, message = $"Congratulations! You won a {selectedToy.Name}!", result = result });
                 }
                 else
@@ -79,8 +79,8 @@ namespace ClawQuest.Controllers
                     return Json(new { success = false, message = "Sorry, you missed this time.", result = result });
                 }
 
-                // Deduct the toy cost from the player's money
-                player.Money -= selectedToy.Cost;
+                // Deduct the toy Price from the player's money
+                player.Money -= selectedToy.Price;
 
                 _context.SaveChanges();
             }
