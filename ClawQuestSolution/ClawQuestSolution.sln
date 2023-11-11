@@ -7,7 +7,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClawQuest", "ClawQuest\Claw
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UnitTests", "UnitTests", "{E35DFAFE-097E-4A68-8093-9F756375645B}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ClawQuestTests", "ClawQuestTests\ClawQuestTests.csproj", "{6E73B1CD-6A40-42C7-9D6E-FF311CCB7F7E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ClawQuestTests", "ClawQuestTests\ClawQuestTests.csproj", "{6E73B1CD-6A40-42C7-9D6E-FF311CCB7F7E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
