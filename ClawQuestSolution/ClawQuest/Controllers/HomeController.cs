@@ -18,22 +18,12 @@ namespace ClawQuest.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
-        {
-            return View();
-        }
-
         public IActionResult Play()
         {
             return View();
         }
 
         public IActionResult Leaderboard()
-        {
-            return View();
-        }
-        
-        public IActionResult Quit()
         {
             return View();
         }
