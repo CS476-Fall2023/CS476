@@ -10,32 +10,15 @@ namespace ClawQuest.Data
 
         public static async Task InitializeAsync(IServiceProvider serviceProvider)
         {
-            #region Seed User Roles
-            using (var context = new ApplicationDbContext(serviceProvider.GetRequiredService<DbContextOptions<ApplicationDbContext>>()))
-            {
-                string[] roles = new string[] { "Administrator", "Player" };
-
-                var newrolelist = new List<IdentityRole>();
-                foreach (string role in roles)
-                {
-                    if (!context.Roles.Any(r => r.Name == role))
-                    {
-                        newrolelist.Add(new IdentityRole(role));
-                    }
-                }
-                context.Roles.AddRange(newrolelist);
-                context.SaveChanges();
-            }
-            #endregion
-
-            #region Seed Users
+            #region Seed Users and Roles
             using (UserManager<IdentityUser> _userManager = serviceProvider.GetRequiredService<UserManager<IdentityUser>>())
+            using (RoleManager<IdentityRole> _roleManager = serviceProvider.GetRequiredService <RoleManager<IdentityRole>>())
             {
 
                 var userlist = new List<SeedUserModel>()
             {
-                new SeedUserModel(){ UserName="miltonshaw@clawquest.com",Password= "Admin123!" },
-                new SeedUserModel(){UserName ="davidbutler@gmail.com", Password="Skyisblue123!"}
+                new SeedUserModel(){ UserName="miltonshaw@clawquest.com", Password= "Admin123!" },
+                new SeedUserModel(){ UserName ="davidbutler@gmail.com", Password="Skyisblue123!"}
             };
 
                 foreach (var user in userlist)
@@ -45,8 +28,17 @@ namespace ClawQuest.Data
                         var newuser = new IdentityUser { UserName = user.UserName, Email = user.UserName };
                         var result = await _userManager.CreateAsync(newuser, user.Password);
                     }
-                }
 
+                    string roleName = user.UserName == "miltonshaw@clawquest.com" ? "Administrator" : "Player";
+                    var role = await _roleManager.FindByNameAsync(roleName);
+                    if (role == null)
+                    {
+                        await _roleManager.CreateAsync(new IdentityRole(roleName));
+                    }
+
+                    var existingUser = await _userManager.FindByNameAsync(user.UserName);
+                    await _userManager.AddToRoleAsync(existingUser, roleName);
+                }
             }
             #endregion
 
