@@ -7,11 +7,8 @@ namespace ClawQuest.Data
     {
         [Key]
         public int GameId { get; set; }
-        [ForeignKey("ApplicationUser")]
-        public string UserId { get; set; }
+        public int UserId { get; set; }
         public int Score { get; set; }
         public int PlaysRemaining { get; set; }
-
-        public virtual ApplicationUser ApplicationUser { get; set; }
     }
 }
