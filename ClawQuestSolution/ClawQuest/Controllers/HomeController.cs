@@ -4,19 +4,36 @@ using ClawQuest.Models;
 using System;
 using System.Linq;
 using System.Diagnostics;
-using ClawQuest.Service;
+using Microsoft.EntityFrameworkCore;
 
 namespace ClawQuest.Controllers
 {
     public class HomeController : Controller
     {
         private readonly ILogger<HomeController> _logger;
+        private readonly ApplicationDbContext _context;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ApplicationDbContext context, ILogger<HomeController> logger)
         {
+            _context = context;
             _logger = logger;
         }
 
+        public async Task<IActionResult> Owner()
+        {
+            var availableItems = await _context.Toys.ToListAsync();
+
+            // Create the view model with the names and IDs of the toys
+            var viewModel = new InputModel()
+            {
+                // This will create an array of zeros with a length equal to the number of toys
+                Inputs = new int[availableItems.Count],
+                ItemNames = availableItems.Select(t => t.Name).ToList(),
+                ItemIds = availableItems.Select(t => t.ToyId).ToList() // Assuming you have a ToyId property in your Toy model
+            };
+            return View(viewModel);
+
+        }
         public IActionResult Index()
         {
             return View();
@@ -31,15 +48,6 @@ namespace ClawQuest.Controllers
             return View();
         }
 
-        public IActionResult Owner()
-        {
-            var viewModel = new InputModel() {
-
-                Inputs = new int[15],
-                ItemNames = ClawItemService.GetAvailableClawItems().Select(c => c.Name).ToList()
-        };
-            return View(viewModel);
-        }
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
@@ -50,13 +58,6 @@ namespace ClawQuest.Controllers
         /* [Route("")]
     public class HomeController : Controller
     {
-        private readonly ApplicationDbContext _context;
-
-        public HomeController(ApplicationDbContext context)
-        {
-            _context = context;
-        }
-
         [HttpGet]
         public IActionResult Index()
         {
