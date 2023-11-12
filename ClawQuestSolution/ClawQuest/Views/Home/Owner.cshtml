@@ -1,0 +1,66 @@
+﻿@model ClawQuest.Models.InputModel
+
+@{
+    ViewData["Title"] = "Owner Page";
+}
+
+<h1> Owner Page</h1>
+<p> This is the form to submit changes()</p>
+<form>
+    <div id="error-message" style="color: red; display: none;">
+        You can only select a total of 24 items.
+    </div>
+    @for (int i = 0; i < Model.Inputs.Length; i++)
+    {
+		<div>
+            <label>@Model.ItemNames[i]</label>
+            <input asp-for="@Model.Inputs[i]" class="game-input" type="number" min="0" max="24" />
+        </div>
+        
+    }
+    <button type="submit">Store Items</button>
+
+</form>
+@section Scripts {
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            var form = document.querySelector('form');
+            var inputs = document.querySelectorAll('.game-input');
+            var maxSlots = 24;
+            var errormessage = document.getElementById('error-message');
+
+            function updateInputLimits() {
+                var totalUsedSlots = Array.from(inputs).reduce(function (total, input) {
+                    return total + (parseInt(input.value) || 0);
+                }, 0);
+
+                var remainingSlots = maxSlots - totalUsedSlots;
+
+                inputs.forEach(function (input) {
+                    // The max value for each input is its current value plus the remaining slots
+                    var currentValue = parseInt(input.value) || 0;
+                    input.max = currentValue + remainingSlots;
+                });
+            }
+
+            inputs.forEach(function (input) {
+                input.addEventListener('input', updateInputLimits);
+            });
+
+            form.addEventListener('submit', function (event)){
+                var totalusedSlots = Array.from(inputs).reduce(function (total, input)) {
+                    return totalusedSlots + (parseInt(input.value) || 0);
+            }, 0);
+            if (totalUsedSlots > maxSlots) {
+                event.preventDefault();
+                errormessage.style.display = 'block';
+            }
+            else {
+                errorMessage.style.display = 'none';
+            }
+        });
+
+       updateInputLimits();
+        });
+    </script>
+}

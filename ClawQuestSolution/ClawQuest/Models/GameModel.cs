@@ -2,7 +2,7 @@
 
 namespace ClawQuest.Models;
 
-public class Game
+public class GameModel
 {
     public int GameId { get; set; }
     public int UserId { get; set; }
