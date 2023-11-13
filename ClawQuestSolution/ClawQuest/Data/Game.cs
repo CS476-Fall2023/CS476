@@ -19,20 +19,6 @@ namespace ClawQuest.Data
         public Game()
         {
             ToyGrid = new Toy[3, 8];
-            for (int row = 0; row < ToyGrid.GetLength(0); row++)
-            {
-                for (int col = 0; col < ToyGrid.GetLength(1); col++)
-                {
-                    if (ToyGrid[row, col] != null)
-                    {
-                        Console.WriteLine($"ToyGrid[{row}, {col}] = {ToyGrid[row, col].Name}");
-                    }
-                    else
-                    {
-                        Console.WriteLine($"ToyGrid[{row}, {col}] = null");
-                    }
-                }
-            }
         }
 
         public void AddToys(List<Toy> availableToys, int toyId, int quantity)
