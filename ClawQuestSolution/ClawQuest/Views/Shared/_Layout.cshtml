@@ -9,9 +9,13 @@
     <link rel="stylesheet" href="~/ClawQuest.styles.css" asp-append-version="true" />
 </head>
 <body>
-@*     <video autoplay muted loop id="clawQuestVideo">
-        <source src="~/css/clawquest.mp4" type="video/mp4">
-    </video> *@
+    @if (ViewContext.RouteData.Values["controller"]?.ToString() == "Home" &&
+    ViewContext.RouteData.Values["action"]?.ToString() == "Index")
+    {
+        <video autoplay muted loop id="clawQuestVideo">
+            <source src="~/css/clawquest.mp4" type="video/mp4">
+        </video>
+    }
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
@@ -25,15 +29,21 @@
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Play">Play</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Player"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Play">Play</a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Leaderboard">Leaderboard</a>
                         </li>
-                        <li class="nav-item">
-                            <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Owner">Owner</a>
-                        </li>
+                        @if (User.Identity.IsAuthenticated && User.IsInRole("Administrator"))
+                        {
+                            <li class="nav-item">
+                                <a class="nav-link text-dark" asp-area="" asp-controller="Home" asp-action="Owner">Owner</a>
+                            </li>
+                        }
                     </ul>
                     <partial name="_LoginPartial" />
                 </div>
@@ -55,6 +65,7 @@
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/js/OwnerError.js" asp-append-version="true"></script>
 
 
     @await RenderSectionAsync("Scripts", required: false)
