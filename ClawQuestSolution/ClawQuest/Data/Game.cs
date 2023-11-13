@@ -19,6 +19,7 @@ namespace ClawQuest.Data
         public Game()
         {
             ToyGrid = new Toy[3, 8];
+            
         }
 
         public void AddToys(List<Toy> availableToys, int toyId, int quantity)

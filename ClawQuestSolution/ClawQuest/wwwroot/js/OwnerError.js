@@ -16,23 +16,24 @@
             input.max = currentValue + remainingSlots;
         });
         if (totalUsedSlots > maxSlots) {
+            errormessage.textContent = 'You can only select a total of 24 items.';
             errormessage.style.display = 'block';
         }
         else {
             errormessage.style.display = 'none';
         } 
-
     }
 
     inputs.forEach(function (input) {
-        input.addEventListener('input', updateInputLimits);
+        input.addEventListener('input', function () {
+            updateInputLimits();
+        });
     });
 
     form.addEventListener('submit', function (event) {
         var totalUsedSlots = Array.from(inputs).reduce(function (total, input) {
             return total + (parseInt(input.value) || 0);
     }, 0);
-        console.log('Total on Submit: ' + totalUsedSlots);
         if (totalUsedSlots > maxSlots) {
             event.preventDefault();
             errormessage.textContent = 'You can only select a total of 24 items.';
@@ -40,8 +41,9 @@
         }
         else {
             errormessage.style.display = 'none';
+        } 
         }
      });
 
-updateInputLimits();
+    updateInputLimits();
 });
