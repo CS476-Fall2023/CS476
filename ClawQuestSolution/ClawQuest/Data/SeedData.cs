@@ -57,30 +57,31 @@ namespace ClawQuest.Data
             #region Seed Toys
             using (var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>())
             {
-                if (!dbContext.Toys.Any())
-                {
-                    var toyList = new List<Toy>
+                var existingToys = dbContext.Toys.ToList();
+                dbContext.Toys.RemoveRange(existingToys);
+                dbContext.SaveChanges();
+
+                var toyList1 = new List<Toy>
                     {
-                        new Toy { Name = "Mega Plushie", Price = 19.99, WinProbability = 0.5 },
-                        new Toy { Name = "Teddy Bear", Price = 15.99, WinProbability = 0.7 },
-                        new Toy { Name = "Squid Plushie", Price = 12.99, WinProbability = 0.6 },
-                        new Toy { Name = "Action Figure", Price = 9.99, WinProbability = 0.4 },
-                        new Toy { Name = "Remote Control Car", Price = 24.99, WinProbability = 0.8 },
-                        new Toy { Name = "Board Game", Price = 18.99, WinProbability = 0.6 },
-                        new Toy { Name = "Doll House", Price = 29.99, WinProbability = 0.4 },
-                        new Toy { Name = "LEGO Set", Price = 25.99, WinProbability = 0.7 },
-                        new Toy { Name = "Puzzle", Price = 14.99, WinProbability = 0.5 },
-                        new Toy { Name = "Robot Kit", Price = 22.99, WinProbability = 0.6 },
-                        new Toy { Name = "Super Soaker Water Gun", Price = 17.99, WinProbability = 0.8 },
-                        new Toy { Name = "Science Kit", Price = 21.99, WinProbability = 0.5 },
-                        new Toy { Name = "Basketball", Price = 12.99, WinProbability = 0.3 },
-                        new Toy { Name = "Toy Kitchen Set", Price = 27.99, WinProbability = 0.7 },
-                        new Toy { Name = "Art Supplies", Price = 16.99, WinProbability = 0.6 },
+                        new Toy { Name = "Mega Plushie", Points = 200, WinProbability = 0.5 },
+                        new Toy { Name = "Teddy Bear", Points = 160, WinProbability = 0.7 },
+                        new Toy { Name = "Squid Plushie", Points = 120, WinProbability = 0.6 },
+                        new Toy { Name = "Action Figure", Points = 100, WinProbability = 0.4 },
+                        new Toy { Name = "Remote Control Car", Points = 250, WinProbability = 0.8 },
+                        new Toy { Name = "Board Game", Points = 190, WinProbability = 0.6 },
+                        new Toy { Name = "Doll House", Points = 300, WinProbability = 0.4 },
+                        new Toy { Name = "LEGO Set", Points = 250, WinProbability = 0.7 },
+                        new Toy { Name = "Puzzle", Points = 150, WinProbability = 0.5 },
+                        new Toy { Name = "Robot Kit", Points = 230, WinProbability = 0.6 },
+                        new Toy { Name = "Super Soaker Water Gun", Points = 180, WinProbability = 0.8 },
+                        new Toy { Name = "Science Kit", Points = 220, WinProbability = 0.5 },
+                        new Toy { Name = "Basketball", Points = 130, WinProbability = 0.3 },
+                        new Toy { Name = "Toy Kitchen Set", Points = 280, WinProbability = 0.7 },
+                        new Toy { Name = "Art Supplies", Points = 170, WinProbability = 0.6 },
                     };
 
-                    dbContext.Toys.AddRange(toyList);
-                    dbContext.SaveChanges();
-                }
+                dbContext.Toys.AddRange(toyList1);
+                dbContext.SaveChanges();
             }
             #endregion
         }
