@@ -66,7 +66,8 @@ body {
 .claw-machine {
     position: relative;
     width: 300px;
-    height: 200px;
+    height: 400px;
+    left: 220px;
     border: 2px solid #000;
     overflow: hidden;
 }
@@ -74,40 +75,79 @@ body {
 .machine-body {
     background-color: #d3d3d3;
     width: 100%;
-    height: 30px;
+    height: 5px;
+    top: 5px;
     position: relative;
 }
 
-.claw {
-    width: 0;
-    height: 0;
-    border-left: 15px solid transparent;
-    border-right: 15px solid transparent;
-    border-bottom: 30px solid red;
+#claw {
     position: absolute;
-    bottom: 0;
-    left: 0;
-    transform: translateX(-100%);
+    width: 60px;
+    height: 196px;
     transition: transform 2s ease-in-out;
 }
 
-    /* Add this to hide the part of the claw you don't want to be visible initially */
-    .claw::before {
-        content: "";
-        width: 15px;
-        height: 30px;
-        background-color: red;
-        position: absolute;
-        bottom: 0;
-        left: -15px;
+#clawBar {
+    position: absolute;
+    top: 20px;
+    left: 27px;
+    width: 6px;
+    height: 15px;
+    background: #5b5b5b;
+}
+
+#clawALL {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 60px;
+}
+
+#clawBall {
+    position: absolute;
+    top: 31px;
+    left: 24px;
+    width: 6px;
+    height: 6px;
+    border: 6px solid #5b5b5b;
+    border-radius: 50%;
+}
+
+#leftClaw {
+    position: absolute;
+    top: 36px;
+    left: 3px;
+    width: 16px;
+    height: 25px;
+    border-top: 8px solid #5b5b5b;
+    border-left: 4px solid #5b5b5b;
+    transform-origin: top right;
+    transform: rotate(-30deg);
+}
+
+#rightClaw {
+    position: absolute;
+    top: 36px;
+    right: 3px;
+    width: 16px;
+    height: 25px;
+    border-top: 8px solid #5b5b5b;
+    border-right: 4px solid #5b5b5b;
+    transform-origin: top left;
+    transform: rotate(30deg);
+}
+
+#clawOpen {
+    transform: rotate(0deg);
+}
+
+@-webkit-keyframes fullsize {
+    from {
+        transform: scale(1) translate(0,0)
     }
 
-    .claw::after {
-        content: "";
-        width: 15px;
-        height: 30px;
-        background-color: red;
-        position: absolute;
-        bottom: 0;
-        left: 30px;
+    to {
+        transform: scale(4) translate(30px,-30px)
     }
+}
+
