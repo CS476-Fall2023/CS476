@@ -13,9 +13,14 @@ namespace ClawQuest.Controllers
         {
             _context = context;
         }
-        public async Task<IActionResult> PopulateToyGrid(InputModel model)
+        public async Task<string> PopulateToyGrid(InputModel model)
         {
             var game = new Game();
+
+            if(model.Quantities.Sum() > 24)
+            {
+                return "Total Failure";
+            }
 
             if (model.ItemIds.Count != model.Quantities.Count)
             {
@@ -23,7 +28,7 @@ namespace ClawQuest.Controllers
                 ModelState.AddModelError("Quantities", "The number of quantities does not match the number of item IDs.");
                 // Repopulate the ItemNames for the view to use.
                 model.ItemNames = await _context.Toys.Select(t => t.Name).ToListAsync();
-                return View("Owner", model);
+                return "Quantities Failure";
             }
 
             var availableToys = await _context.Toys
@@ -53,7 +58,7 @@ namespace ClawQuest.Controllers
                 }
             }
 
-            return View("Owner", model);
+            return "Success";
         }
     }
 }
