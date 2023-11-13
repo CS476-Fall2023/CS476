@@ -9,9 +9,13 @@
     <link rel="stylesheet" href="~/ClawQuest.styles.css" asp-append-version="true" />
 </head>
 <body>
-@*     <video autoplay muted loop id="clawQuestVideo">
-        <source src="~/css/clawquest.mp4" type="video/mp4">
-    </video> *@
+    @if (ViewContext.RouteData.Values["controller"].ToString() == "Home" &&
+    ViewContext.RouteData.Values["action"].ToString() == "Index")
+    {
+        <video autoplay muted loop id="clawQuestVideo">
+            <source src="~/css/clawquest.mp4" type="video/mp4">
+        </video>
+    }
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
             <div class="container-fluid">
