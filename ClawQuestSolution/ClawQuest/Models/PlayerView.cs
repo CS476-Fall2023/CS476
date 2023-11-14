@@ -2,8 +2,8 @@
 {
     public class PlayerView
     {
-        public int Score { get; set; }
-        public int TriesLeft { get; set; }
+        public double Score { get; set; } = 0;
+        public int TriesLeft { get; set; } = 5;
         public int SelectedColumn { get; set; } = 0;
         public string PrizeResult { get; set; }
     }

@@ -42,8 +42,7 @@ namespace ClawQuest.Controllers
         {
             var viewModel = new PlayerView
             {
-                Score = 0,    // Set initial score
-                TriesLeft = 5, // Set initial number of tries
+
             };
 
             return View(viewModel);

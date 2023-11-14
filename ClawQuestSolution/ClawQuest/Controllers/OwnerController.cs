@@ -57,7 +57,6 @@ namespace ClawQuest.Controllers
                     }
                     
                 }
-                game.AddToys(availableToys, toyId, quantity);
             }
 
             for (int row = 0; row < game.ToyGrid.GetLength(0); row++)
