@@ -9,5 +9,8 @@ namespace ClawQuest.Data
         public string Name { get; set; }
         public double Points { get; set; }
         public double WinProbability { get; set; }
+
+        public ICollection<ClawMachineToy> ClawMachineToys { get; set; }
+
     }
 }
