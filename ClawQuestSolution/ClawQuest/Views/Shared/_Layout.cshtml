@@ -55,12 +55,14 @@
             @RenderBody()
         </main>
     </div>
-
-    <footer class="footer text-muted">
-        <div class="container">
-            &copy; 2023 - ClawQuest - <a asp-area="" asp-controller="Home" asp-action="Index">Home Page</a>
-        </div>
-    </footer>
+    @if (User.Identity.IsAuthenticated && User.IsInRole("Player"))
+    {
+        <footer class="footer text-muted">
+            <div class="container">
+                &copy; 2023 - ClawQuest - <a asp-area="" asp-controller="Home" asp-action="Index">Home Page</a>
+            </div>
+        </footer>
+    }
 
     <script src="~/lib/jquery/dist/jquery.min.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>

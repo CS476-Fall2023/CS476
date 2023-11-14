@@ -20,7 +20,7 @@ namespace ClawQuest.Controllers
 
             if (totalItemsInDb + totalItemsToAdd > 24)
             {
-                ModelState.AddModelError("Quantities", "The total number of items cannot exceed 24.");
+                TempData["ErrorMessage"] = "The total number of items cannot exceed 24.";
                 return RedirectToAction("Owner", "Home");
             }
 
