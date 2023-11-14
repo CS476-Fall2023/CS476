@@ -6,6 +6,8 @@ namespace ClawQuest.Data
     public class ClawMachineToy
     {
         [Key]
+        public int ClawMachineToyId { get; set; }
+
         public int ToyId { get; set; }
 
         [ForeignKey("ToyId")]
