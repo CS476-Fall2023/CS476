@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@model ClawQuest.Models.PlayerView
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -23,15 +24,16 @@
             </div>
             <br />       
         </div>
-        <div id="result" class="result">Prize Result: </div>
-        <div id="tries" class="tries">Tries Left: 3</div>
-        <div id="claw-machine-grid" class="claw-machine-grid"></div>
-        <div class="controls">
-            <label for="column">Column:</label>
-            <input type="number" id="column" min="1" max="8">
-            <button onclick="operateClaw()">Operate Claw</button>
+        <form asp-controller="Player" asp-action="OperateClaw" method="post">
+            <div id="result" class="result">Prize Result: @Model.PrizeResult</div>
+            <div id="tries" class="tries">Tries Left: @Model.TriesLeft</div>
+            <div id="claw-machine-grid" class="claw-machine-grid"></div>
+            <div class="controls">
+			<label for="column">Column:</label>
+            <input asp-for="@Model.SelectedColumn" type="number" id="column" min="1" max="8">
+			<button type="submit" onclick="operateClaw()">Operate Claw</button>
+		</form>
         </div>
-    </div>
     <script src="script.js"></script>
 </body>
 </html>
@@ -47,6 +49,8 @@
             const clawElement = document.getElementById("claw");
             clawElement.style.transform = `translateX(${clawPosition}px)`;
 
-        }
+            event.preventDefault();
 
+            // Submit the form programmatically
+            document.querySelector('form').submit();
     </script>

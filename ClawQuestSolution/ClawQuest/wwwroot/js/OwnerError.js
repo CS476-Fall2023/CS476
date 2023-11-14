@@ -42,7 +42,6 @@
         else {
             errormessage.style.display = 'none';
         } 
-        }
      });
 
     updateInputLimits();
