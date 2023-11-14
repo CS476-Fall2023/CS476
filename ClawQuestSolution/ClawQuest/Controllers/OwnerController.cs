@@ -15,6 +15,15 @@ namespace ClawQuest.Controllers
         }
         public async Task<IActionResult> PopulateToyGrid(InputModel model)
         {
+            int totalItemsInDb = _context.ClawMachineToys.ToList().Count;
+            int totalItemsToAdd = model.Quantities.Where(p => p > 0).Sum();
+
+            if (totalItemsInDb + totalItemsToAdd > 24)
+            {
+                ModelState.AddModelError("Quantities", "The total number of items cannot exceed 24.");
+                return RedirectToAction("Owner", "Home");
+            }
+
             var game = new Game();
             if(model.Quantities.Sum() > 24)
             {
