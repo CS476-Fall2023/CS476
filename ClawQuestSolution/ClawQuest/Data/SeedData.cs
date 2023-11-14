@@ -79,41 +79,6 @@ namespace ClawQuest.Data
                     dbContext.Toys.AddRange(toyList1);
                     dbContext.SaveChanges();
                 }
-
-                if (!dbContext.ClawMachineToys.Any())
-                {
-                    var toyList1 = new List<ClawMachineToy>
-    {
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Mega Plushie").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Robot Kit").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Toy Kitchen Set").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Art Supplies").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Robot Kit").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Basketball").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Puzzle").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Doll House").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Teddy Bear").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Robot Kit").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Puzzle").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Board Game").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Action Figure").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Doll House").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Squid Plushie").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Remote Control Car").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "LEGO Set").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Squid Plushie").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Mega Plushie").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Board Game").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Toy Kitchen Set").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Mega Plushie").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Basketball").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Super Soaker Water Gun").FirstOrDefault().ToyId },
-        new ClawMachineToy { ToyId = dbContext.Toys.Where(p => p.Name == "Art Supplies").FirstOrDefault().ToyId },
-    };
-
-                    dbContext.ClawMachineToys.AddRange(toyList1);
-                    dbContext.SaveChanges();
-                }
             }
             #endregion
         }
