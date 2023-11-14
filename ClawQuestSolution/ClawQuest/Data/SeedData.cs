@@ -48,8 +48,6 @@ namespace ClawQuest.Data
 
                     var updateUser = await _userManager.FindByNameAsync(user.UserName);
                     await _userManager.AddToRoleAsync(updateUser, roleName);
-
-
                 }
             }
             #endregion
@@ -57,11 +55,9 @@ namespace ClawQuest.Data
             #region Seed Toys
             using (var dbContext = serviceProvider.GetRequiredService<ApplicationDbContext>())
             {
-                var existingToys = dbContext.Toys.ToList();
-                dbContext.Toys.RemoveRange(existingToys);
-                dbContext.SaveChanges();
-
-                var toyList1 = new List<Toy>
+                if (!dbContext.Toys.Any())
+                {
+                    var toyList1 = new List<Toy>
                     {
                         new Toy { Name = "Mega Plushie", Points = 200, WinProbability = 0.5 },
                         new Toy { Name = "Teddy Bear", Points = 160, WinProbability = 0.7 },
@@ -80,8 +76,9 @@ namespace ClawQuest.Data
                         new Toy { Name = "Art Supplies", Points = 170, WinProbability = 0.6 },
                     };
 
-                dbContext.Toys.AddRange(toyList1);
-                dbContext.SaveChanges();
+                    dbContext.Toys.AddRange(toyList1);
+                    dbContext.SaveChanges();
+                }
             }
             #endregion
         }
