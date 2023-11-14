@@ -3,79 +3,35 @@ using Microsoft.AspNetCore.Mvc;
 using ClawQuest.Data;
 using Microsoft.EntityFrameworkCore;
 using System.Security.Cryptography.X509Certificates;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 
 namespace ClawQuest.Controllers
 {
     public class PlayerController : Controller
     {
-        private readonly Game _game; // Assuming you have a reference to the Game object
+        private readonly ApplicationDbContext _context;
 
-        public PlayerController(Game game)
+        public PlayerController(ApplicationDbContext context)
         {
-            _game = game;
+            _context = context;
         }
 
-        public string ChoosePrize(int column)
+        [HttpPost]
+        public IActionResult OperateClaw(PlayerView model)
         {
-            if (column >= 0 && column < _game.ToyGrid.GetLength(1)) // Ensure the chosen column is within bounds
-            {
-                
-                Toy prize = _game.ToyGrid[0, column]; 
+            var game = new Game();
+            // Implement your game logic here to determine the prize result, tries left, and user score
+            string prizeResult = game.ChoosePrize(model.SelectedColumn); // Replace with your game logic
+            int triesLeft = game.PlaysRemaining; // Replace with your game logic
+            int userScore = game.AddScore(model.TriesLeft); // Replace with your game logic
 
-                _game.ToyGrid[0, column].Name = " ";
-                _game.ToyGrid[0, column].Points = 0;
-                _game.ToyGrid[0, column].WinProbability = 0;
+            // Create an anonymous object to hold the response data
+                model.PrizeResult = prizeResult;
+                model.TriesLeft = triesLeft;
+                model.Score = userScore;
 
-                _game.PlaysRemaining--;
-                return prize.Name;
-            }
-            else if (_game.ToyGrid[0, column].Name == " ")
-            {
-                Toy prize = _game.ToyGrid[1, column];
-
-                _game.ToyGrid[1, column].Name = " ";
-                _game.ToyGrid[1, column].Points = 0;
-                _game.ToyGrid[1, column].WinProbability = 0;
-                _game.PlaysRemaining--;
-                return prize.Name;
-
-            }
-            else if (_game.ToyGrid[1, column].Name == " ")
-            {
-                Toy prize = _game.ToyGrid[2, column];
-                _game.ToyGrid[2, column].Name = " ";
-                _game.ToyGrid[2, column].Points = 0;
-                _game.ToyGrid[2, column].WinProbability = 0;
-                _game.PlaysRemaining--;
-                return prize.Name;
-
-            }
-            else if (_game.ToyGrid[2, column].Name == " ")
-            {
-                return "Nothing is here!";
-            }
-            else
-            {
-                // Handle invalid column choice, e.g., return an error view or redirect
-                return "invalid";
-            }
-        }
-
-        public int AddPrize(int column)
-        {
-            string prizeName = ChoosePrize(column);
-
-            if(prizeName == "invalid" || prizeName == "Nothing is here!")
-            {
-                return 0;
-            }
-
-            Dictionary<string, int> prizePointsMap = new Dictionary<string, int>
-    {
-        { "Mega Plushie", 200 },
-        { "Teddy Bear", 160 },
-                { }
-    };
+            return View(model);
         }
 
 
