@@ -1,4 +1,6 @@
 ﻿@model ClawQuest.Models.InputModel
+@Html.ValidationSummary(true)
+<partial name="_ValidationScriptsPartial" />
 
 @{
     ViewData["Title"] = "Owner Page";
@@ -19,6 +21,14 @@
                     <input type="hidden" asp-for="@Model.ItemIds[i]" />
                     <input asp-for="@Model.Quantities[i]" class="game-input form-control" type="number" min="0" max="24" />
                 </div>
+            </div>
+        }
+    </div>
+    <div class="row">
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["ErrorMessage"]
             </div>
         }
     </div>
