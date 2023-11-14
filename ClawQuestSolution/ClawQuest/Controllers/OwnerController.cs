@@ -40,9 +40,13 @@ namespace ClawQuest.Controllers
                 int quantity = model.Quantities[i];
                 if (_context.ClawMachineToys.ToList().Count() < 25 && quantity > 0)
                 {
-                    ClawMachineToy clawMachineToy = new ClawMachineToy { ToyId = toyId };
-                    _context.ClawMachineToys.Add(clawMachineToy);
-                    _context.SaveChanges();
+                    for(int j = 0; j < quantity; j++)
+                    {
+                        ClawMachineToy clawMachineToy = new ClawMachineToy { ToyId = toyId };
+                        _context.ClawMachineToys.Add(clawMachineToy);
+                        _context.SaveChanges();
+                    }
+                    
                 }
                 game.AddToys(availableToys, toyId, quantity);
             }
