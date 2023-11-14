@@ -51,7 +51,7 @@ namespace ClawQuest.Data.Migrations
 
                     b.HasKey("GameId");
 
-                    b.ToTable("Games");
+                    b.ToTable("Games", (string)null);
                 });
 
             modelBuilder.Entity("ClawQuest.Data.Toy", b =>
@@ -74,7 +74,7 @@ namespace ClawQuest.Data.Migrations
 
                     b.HasKey("ToyId");
 
-                    b.ToTable("Toys");
+                    b.ToTable("Toys", (string)null);
                 });
 
             modelBuilder.Entity("Microsoft.AspNetCore.Identity.IdentityRole", b =>
