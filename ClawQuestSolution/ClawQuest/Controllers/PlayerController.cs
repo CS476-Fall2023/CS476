@@ -21,19 +21,39 @@ namespace ClawQuest.Controllers
         public IActionResult OperateClaw(PlayerView model)
         {
             var game = new Game();
-            // Implement your game logic here to determine the prize result, tries left, and user score
-            string prizeResult = game.ChoosePrize(model.SelectedColumn); // Replace with your game logic
-            int triesLeft = game.PlaysRemaining; // Replace with your game logic
-            int userScore = game.AddScore(model.TriesLeft); // Replace with your game logic
 
-            // Create an anonymous object to hold the response data
-                model.PrizeResult = prizeResult;
-                model.TriesLeft = triesLeft;
-                model.Score = userScore;
+            int totalCount = _context.ClawMachineToys.Count();
 
-            return View(model);
+
+            Random random = new Random();
+            int randomIndex = random.Next(0, totalCount);
+
+
+            var randomItem = _context.ClawMachineToys
+                .Skip(randomIndex)
+                .FirstOrDefault();
+
+
+            if (randomItem != null)
+            {
+                var winProbability = _context.Toys.FirstOrDefault(p => p.ToyId == randomItem.ToyId).WinProbability;
+                double winPercent = random.NextDouble();
+                if (winPercent >= winProbability)
+                {
+                    model.PrizeResult = randomItem.Toys.Name;
+                    model.TriesLeft = model.TriesLeft - 1;
+                    model.Score = randomItem.Toys.Points;
+                }
+                else
+                {
+                    model.PrizeResult = "Please Try Again.";
+                    model.TriesLeft = model.TriesLeft - 1;
+                }
+            }
+            TempData["PrizeResult"] = model.PrizeResult;
+            TempData["TriesLeft"] = model.TriesLeft;
+           //TempData["Score"] = model.Score;
+            return RedirectToAction("Play", "Home");
         }
-
-
     }
 }

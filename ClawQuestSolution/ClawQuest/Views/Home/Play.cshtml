@@ -1,4 +1,7 @@
 ﻿@model ClawQuest.Models.PlayerView
+@Html.ValidationSummary(true)
+<partial name="_ValidationScriptsPartial" />
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -25,8 +28,8 @@
             <br />       
         </div>
         <form asp-controller="Player" asp-action="OperateClaw" method="post">
-            <div id="result" class="result">Prize Result: @Model.PrizeResult</div>
-            <div id="tries" class="tries">Tries Left: @Model.TriesLeft</div>
+            <div id="result" class="result">Prize Result: @TempData["PrizeResult"]</div>
+            <div id="tries" class="tries">Tries Left: @TempData["TriesLeft"]</div>
             <div id="claw-machine-grid" class="claw-machine-grid"></div>
             <div class="controls">
 			<label for="column">Column:</label>
